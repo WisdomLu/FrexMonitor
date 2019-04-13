@@ -1,0 +1,10 @@
+
+<div ng-controller="reportCtrl">
+    <div id="ad_tabs">
+        <a class="{{activeType==1?'second-report-active':'second-report'}}" href="#/Content/Report/View">
+        </a>
+        <a class="{{activeType==2?'ad-manager-active':'ad-manager'}}" href="#/Content/Spread/AdManager">
+        </a>
+    </div>
+    <div id="fm_home_content" ui-view="fm_home_window"></div>
+</div>

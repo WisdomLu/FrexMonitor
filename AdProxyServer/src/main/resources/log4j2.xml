@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+
+	<Properties>
+		<Property  name="LOG_HOME">${sys:catalina.base}/logs</Property >
+		<!-- <Property  name="LOG_HOME">G:\Alex_tool\apache-tomcat-8.0.39\logs</Property > -->
+   </Properties>
+	<appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout
+				pattern="%date{yyyy-MM-dd HH:mm:ss.SSS} %level %thread %c - %msg%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1"
+					modulate="true" />
+				<SizeBasedTriggeringPolicy size="500 MB" />  
+			</Policies>
+			<DefaultRolloverStrategy>
+				<Delete basePath="${LOG_HOME}" maxDepth="1">
+					<IfLastModified age="3d" />
+				</Delete>
+			</DefaultRolloverStrategy>
+		</Console>
+		<!-- ad request business 请求日志 -->
+		<RollingRandomAccessFile name="business"
+			fileName="${LOG_HOME}/ZK_AD_PROXY_SERVER_DAILY.log" filePattern="${LOG_HOME}/ZK_AD_PROXY_SERVER_DAILY.%d{yyyy-MM-dd-HH}.log">
+			<PatternLayout
+				pattern="%date{yyyy-MM-dd HH:mm:ss.SSS} %level %thread  %c - %msg%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1"
+					modulate="true" />
+				<!-- <SizeBasedTriggeringPolicy size="500 MB" />   -->
+			</Policies>
+			<DefaultRolloverStrategy>
+				<Delete basePath="${LOG_HOME}" maxDepth="1">
+					<IfLastModified age="3d" />
+				</Delete>
+			</DefaultRolloverStrategy>
+		</RollingRandomAccessFile>
+		<RollingRandomAccessFile name="lbs"
+			fileName="${LOG_HOME}/ZK_LBS_SERVER_DAILY.log" filePattern="${LOG_HOME}/ZK_LBS_SERVER_DAILY.%d{yyyy-MM-dd-HH}.log">
+			<PatternLayout
+				pattern="%date{yyyy-MM-dd HH:mm:ss.SSS} %level %thread  %c - %msg%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1"
+					modulate="true" />
+				<SizeBasedTriggeringPolicy size="400 MB" /> 
+			</Policies>
+			<DefaultRolloverStrategy>
+				<Delete basePath="${LOG_HOME}" maxDepth="1">
+					<IfLastModified age="3d" />
+				</Delete>
+			</DefaultRolloverStrategy>
+		</RollingRandomAccessFile>
+	    <RollingRandomAccessFile name="dis"
+			fileName="${LOG_HOME}/ZK_DIS_SERVER_DAILY.log" filePattern="${LOG_HOME}/ZK_DIS_SERVER_DAILY.%d{yyyy-MM-dd-HH}.log">
+			<PatternLayout
+				pattern="%date{yyyy-MM-dd HH:mm:ss.SSS} %level %thread  %c - %msg%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1"
+					modulate="true" />
+				<!-- <SizeBasedTriggeringPolicy size="400 MB" />  -->
+			</Policies>
+			<DefaultRolloverStrategy>
+				<Delete basePath="${LOG_HOME}" maxDepth="1">
+					<IfLastModified age="3d" />
+				</Delete>
+			</DefaultRolloverStrategy>
+		</RollingRandomAccessFile>
+		<RollingRandomAccessFile name="monitor"
+				fileName="${LOG_HOME}/ZK_AD_MONITOR_DAILY.log" filePattern="${LOG_HOME}/ZK_AD_MONITOR_DAILY.%d{yyyy-MM-dd-HH}.log">
+				<PatternLayout
+					pattern="%date{yyyy-MM-dd HH:mm:ss}|%msg%n"/>
+				<Policies>
+					<TimeBasedTriggeringPolicy interval="1"
+						modulate="true" />
+					<!-- <SizeBasedTriggeringPolicy size="400 MB" />  -->
+				</Policies>
+				<DefaultRolloverStrategy>
+					<Delete basePath="${LOG_HOME}" maxDepth="1">
+						<IfLastModified age="3d" />
+					</Delete>
+				</DefaultRolloverStrategy>
+		</RollingRandomAccessFile>
+<!-- 		<Socket name="monitor" host="localhost" port="4560">
+            <JsonLayout compact="true" eventEol="true" />
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss}|%msg%n"/>
+        </Socket> -->
+	</appenders>
+	<loggers>
+        <logger name="org.spring" level="error" additivity="false">  
+            
+            <AppenderRef ref="business" />  
+        </logger>  
+        <logger name="org.springframework" level="error" additivity="false">  
+            
+            <AppenderRef ref="business" />  
+        </logger>  
+        <logger name="org.apache.zookeeper" level="error" additivity="false">  
+             
+            <AppenderRef ref="business" />  
+        </logger>  
+        <logger name="org.apache.thrift" level="error" additivity="false">  
+            
+            <AppenderRef ref="business" />  
+        </logger>  
+
+		<logger name="com.ocean" level="info" additivity="false" >
+			 
+			 <AppenderRef ref="business" />  
+		</logger> 
+		<Logger name="lbs" level="info" additivity="false">
+			<AppenderRef ref="lbs" />
+		</Logger>
+		<Logger name="dis" level="info" additivity="false">
+			<AppenderRef ref="dis" />
+		</Logger>
+		<Logger name="monitor" level="info" additivity="false">
+			<AppenderRef ref="monitor" />
+		</Logger>
+		<Root level="info">
+		    <appender-ref ref="business" />
+			<!-- <appender-ref ref="Console" /> -->
+			
+		</Root>
+	</loggers>
+</Configuration>

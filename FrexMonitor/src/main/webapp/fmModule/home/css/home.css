@@ -1,0 +1,107 @@
+#report_view_window {
+    top: 25px;
+    height: 685px;
+}
+
+#expand-balance-row {
+    height: 140px;
+}
+
+#expand {
+    width: 300px;
+    height: 60px;
+    margin-top: 30px;
+    float: left;
+    background-image: url("../img/expand.png");
+    background-position: left;
+    background-repeat: no-repeat;
+    font-size: 18px;
+    padding-left: 60px;
+}
+
+#expand-desc{
+    font-weight: 700;
+    color: #535353;
+}
+
+#expand-amount {
+    color: #eb6877;
+    font-size: 26px;
+}
+#balance {
+    width: 300px;
+    height: 60px;
+    margin-top: 30px;
+    float: left;
+    background-image: url("../img/balance.png");
+    background-position: left;
+    background-repeat: no-repeat;
+    font-size: 18px;
+    padding-left: 60px;
+}
+
+#balance-desc{
+    font-weight: 700;
+    color: #535353;
+}
+
+#balance-amount {
+    color: #eb6877;
+    font-size: 26px;
+}
+
+#ad-desc-row{
+    height: 145px;
+    background-color: #ebebeb;
+    padding-top: 30px;
+}
+#ad_state{
+    height: 45px;
+    color: #7d7d7d;
+    font-size: 18px;
+    line-height: 45px;
+}
+#ad_look{
+    height: 35px;
+    color: #898989;
+    font-size: 14px;
+    line-height: 35px;
+}
+
+#ad_dash{
+    height: 35px;
+}
+#ad_dash div{
+    width: 117px;
+    color: #898989;
+    font-size: 12px;
+    line-height: 35px;
+    background-position: left;
+    background-position-x: 15px;
+    background-repeat: no-repeat;
+    padding-left: 35px;
+}
+#show_amount_t{
+    background-image: url("../img/showAmount.png");
+
+}
+#click_amount_t{
+    background-image: url("../img/clickAmount.png");
+
+}
+#click_rate_t{
+    background-image: url("../img/clickRate.png");
+
+}
+#ecpm_t{
+    background-image: url("../img/ECPM.png");
+
+}
+#ecpc_t{
+    background-image: url("../img/ECPC.png");
+
+}
+#total_cost_t{
+    background-image: url("../img/totalCost.png");
+
+}

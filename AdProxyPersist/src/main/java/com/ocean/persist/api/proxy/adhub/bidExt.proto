@@ -1,0 +1,49 @@
+syntax = "proto2";
+
+package adhub.engine;
+
+import "enumType.proto";
+
+
+// 竞价信息 bid reqeust
+message ImpExt{
+    optional string id = 1; //曝光机会ID, adx生成，唯一
+    optional int32 bidfloor =2; //CPM 底价， 单位分
+    optional BidATType at = 3; // 竞价方式 1 = First Price, 2 = Second Price Plus, 3 = Fix Price from bidfloor
+
+    optional Pmp pmp = 4;
+
+    message Pmp { // 私有交易对象
+        repeated Deal deals = 1;
+        
+        message Deal {
+            required string id = 1; // deal ID
+            required DealType dealType = 2; // 0 - 未知; 1 - PD 保价; 2 - PDB 保价保量
+            required int32 bidfloor = 3; // CPM底价 分
+            optional BidATType at = 4; // 竞价方式 1 = First Price, 2 = Second Price Plus, 3 = Fix Price from bidfloor
+            repeated string wseat = 5; // 白名单
+        }
+    }
+}
+
+message ReqExt {
+    optional string reqID = 1;  // bid请求的RequestID
+
+    repeated string wseat = 2; // 白名单
+    repeated string bseat = 3;  // 黑名单
+    repeated string bcat = 4; // 屏蔽广告主行业
+}
+
+// bid response
+message RespExt{
+    optional string id = 1;  // bid请求的RequestID
+}
+
+message BidExt {
+    optional string bidID = 1; // dsp bid id, 唯一
+    optional string impID = 2; // related imp.id
+    optional int32 price = 3; // bid price in CPM, 单位分
+    optional string crID =4; // 创意ID
+    optional string dealID = 5; //deal id
+    repeated string cats = 6; // 广告主 行业分类
+}

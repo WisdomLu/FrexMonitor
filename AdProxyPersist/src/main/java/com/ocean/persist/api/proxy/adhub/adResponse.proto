@@ -1,0 +1,249 @@
+syntax = "proto2";
+
+package adhub.engine;
+
+import "enumType.proto";
+import "bidExt.proto";
+
+// 服务端广告请求响应消息
+message ServerResponse {
+	required uint32 status = 1;//请求返回状态，0：正常 1：错误
+	required string errcode = 2;//错误代码
+	required string errmsg = 3;//错误信息
+
+	repeated SpaceInfo spaceInfo = 4; // 广告位信息, 广告内容在广告位信息内
+	optional int64 ts = 5; // 服务端返回的时间戳 nanoseconds since January 1, 1970 UTC
+	
+	optional RespExt respExt = 10; //  ADX竞价对接使用, APP对接忽略 zf++ 2017-10-10 15:35:36
+
+	repeated CT ct = 13;// 2017-11-06 统计各种耗时 cost-time; // 各种耗时; 0:verify App/Space from redis; 1:baidu LBS; 2: DNF; 3:adx cost;
+}
+
+/**
+ * costtime
+ * n format: id[_spaceID] for multiply spaceID
+ * 0: app/space validate(redis)
+ * 1: user space frequent limit(redis)
+ * 2: dnf request(tcp)
+ * 3: third ad request(tcp)
+ * 4: ad URL macro replace(loop)
+ * 5: user space refresh interval validation(redis)
+ * 6: ad resp validation(loop)
+ */
+message CT {
+	optional int64 b = 1; // begin ts
+	optional int64 e = 2; // end ts
+	optional string n = 3; // type name, 0: app/space redis verify, 1: baidu lbs, 2: dnf, 3: adx, 4: space user request freq limit
+}
+
+//AdLogo 广告法规定的广告标识 2017-07-27 增加
+message AdLogo{
+	//当 adLabelUrl 不为空时展示此url图片，否则展示adLable内容
+	optional string adLabelUrl = 1; //广告字样图片的url，如："http://otqcy59kg.bkt.clouddn.com/adlabel.png"
+	optional string adLabel = 2;	//广告字样，如：“广告”,目前固定为“广告”
+
+	//当 sourceUrl 不为空时展示此url图片，否则展示sourceLable内容
+	optional string sourceUrl = 3;	//广告来源的logoUrl 如："http://otqcy59kg.bkt.clouddn.com/adlogo.png"，正常情况下使用此url进行展示
+	optional string sourceLabel = 4; //广告来源的文字 如：“ADHUB广告”，如有特殊需求，可以展示此文字
+}
+
+// 广告位位置
+message AdpPosition{
+	required string x = 1;// 左上角x坐标，带单位，"%"表示按百分比展示，如果是绝对值是写具体数字
+	required string y = 2;// 左上角y坐标, 同上
+}
+
+// 广告位信息
+message SpaceInfo {
+	required string spaceID = 1; //广告位id
+	optional string spaceParam = 2;//广告展示参数--激励视频广告位参数
+
+	optional AdpType adpType = 3; // 广告位类型, 开屏,插屏,banner,激励视频,原生,自定义
+	
+	optional uint32 refreshInterval = 4; // 刷新间隔,banner广告自动刷新广告的间隔
+
+	optional ScreenDirectionType screenDirection = 5; // 屏幕方向
+	optional string width = 6;//广告位宽，带单位, "%"结尾表示按对应方向的百分比展示，X轴范围
+	optional string height = 7;//广告位高，同上，Y轴范围
+	optional AdpPosition adpPosition = 8; // 屏幕位置
+	
+	optional bool autoClose = 9; // 是否自动关闭 0 不可以 1 可以
+	optional uint32 maxTime = 10;//最大展示时长, 0:无限制(直到被关闭), 非零: 到时自动关闭; 结合autoClose使用(autoClose优先)
+	optional bool manualClosable = 11;//用户是否可关闭, 0: 用户不可关闭, 1: 用户可关闭
+	optional uint32 minTime = 12; // 最小播放时间
+
+	optional bool wifiPreload = 13;//Wifi时预先加载广告素材, 0: 不加载, 1: 加载 --只针对于视频素材
+	optional bool videoWifiOnly = 14;//视频广告仅在wifi时播放 0: 否 1： 是
+	optional bool mute = 15;//是否播放广告音频, 0: 播放(音量依据用户媒体音量), 1:  静音/不播放音频
+	optional bool fullScreen = 16;//全屏, 0: 非全屏, 1: 全屏
+	optional bool autoPlay = 17;//是否自动播放， 0 非 1 是
+	
+	repeated AdResponse adResponse = 20; // 广告位的广告内容，可能返回多个广告
+
+	// server side variable
+	optional int64 userDayLimit = 25; // 用户日展示频次限制
+	optional int64 userHourLimit = 26; // 用户小时展示频次限制
+	optional int64 orgID = 27; // 组织ID
+	repeated AdContentInfo preloadCtx = 28; // 激励视频preload内容
+
+	optional int64 contentType = 29; // 可用素材类型, bit位组合, 1:图片; 2:图文; 4:文字链; 8:html; 16:视频; 32:vas视频; 64:json; 128:landing; 256: preload
+	optional string appID = 30; // server side use, space appID
+	optional string nativeTemp = 31; // 原生广告样式说明, 2017-06-05
+	repeated string dnfRet = 32; // dnf 返回的广告信息
+	optional string dnfReq = 33; // dnf request object, base64 encoding pb of adSearchReq
+	optional string dnfResp = 34; // dnf response object, base64 encoding pb of adSearchResp
+
+	optional BidExt bidExt = 100;	// ADX竞价对接使用, APP对接忽略 zf++ 2017-10-10 15:35:36
+
+	repeated ChannelInfo ci = 102;// 2017-11-08 debug info for channel
+
+	optional string dnfTrace = 105; // 2017-12-17 searchad.Trace info marshal then encode by base64.RawStdEncoding
+
+	optional int32 platform = 106; // 20180310, space platform from DB config, 1:'android', 2:'ios', 3:'iosandroid'
+
+}
+
+message ChannelInfo {
+	optional string id = 1; // channel id
+	optional string appID = 2; // channel app id
+	optional string paceID = 3; // channel space id
+	optional string bidPrice = 4; // channel bid floor
+	optional int64 tsB = 5; /// begin ts
+	optional int64 tsE = 6; // end ts
+	optional string req = 7; // channel request ctx
+	optional string resp = 8; // channel response ctx
+}
+
+// 广告信息
+message AdResponse {
+	required string extInfo = 1;//广告标识; 作为广告标识在对应的日志中直接复制作为 logRequest的 EXT 字段值 返回给监测日志的信息
+	
+	repeated AdnetworkInfo adnInfo = 2;//adnetwork 结构, 20170412 修改为数组
+	repeated AdContentInfo contentInfo = 3;//素材信息，修改为数组，以使用video及其它类型中包含多个页面的广告(preload, content, landing)
+	optional AdInteractInfo interactInfo = 4;//素材信息-交互
+
+	repeated AdxInfo adxInfo = 5; // 请求adx所需的参数
+
+	optional AdLogo adLogo = 10; // 广告logo标识 2017-07-27 增加
+
+	optional string adid = 11; // adid, use by bidExt 2017-10-13
+	optional string price = 12; // price, use by bidExt 2017-10-14
+
+	repeated string wseats = 20;// 广告主白名单 广告主标识
+	repeated string bseats = 21;// 广告主黑名单 广告主标识
+	repeated string wseatcats = 22; // 广告行业分类白名单 IAB Node name
+	repeated string bseatcats = 23; // 广告行业分类黑名单 IAB Node name
+	repeated string wcats = 24; // 素材行业分类白名单 IAB Node name
+	repeated string bcats = 25; // 素材行业分类黑名单 IAB Node name
+	repeated string bapps = 26; // app白名单 app标识标识
+	
+	optional string adverName = 27; // 广告主名称 2018-03-27 from adhub-adx
+}
+
+// ADN信息
+message AdnetworkInfo {//此处在sdk需要有一个id和具体adnetwork的映射关系
+	required string adnID = 1;	//adnetwork id
+	required string spaceID = 2; // adn spaceID
+	optional string adnParam = 3;// adn特定的参数，用json对象描述
+}
+
+// 广告素材资源消息
+message AdContentSlot{
+	required string md5 = 1; //素材内容MD5, 作为广告资源缓存的key使用
+	required string content = 2; //素材url
+	optional uint32 playTime = 3; // 展示时长，视频或图片的时长
+	optional MaterialType mt = 5; // 素材元素类型
+	optional MaterialSubType mst = 6; // 素材子类型
+	optional int32 h = 7; // 素材尺寸, 高度
+	optional int32 w = 8; // 素材尺寸，宽度
+	optional int32 size = 9; // 素材大小
+	optional string mime = 10; // 素材 mime 类型
+}
+
+// 广告内容信息消息
+message AdContentInfo {
+	required RenderType renderType = 1;//素材内容/渲染类型, 图片, html, 文本, 视频, VAST视频, json
+	optional uint32 size = 2;//素材大小, 单位字节, 如果 template 不为空，此字段无用
+	repeated AdContentSlot adcontentSlot = 3;//素材地址
+	optional string template = 4;//素材使用的广告位模板信息 
+}
+
+// 广告监测信息消息
+message DetectInfo{
+	optional string viewUrl = 1;//曝光检测URL
+	optional string clickUrl = 2;//点击检测URL
+	optional string convertUrl = 3;//转化检测URL
+	
+	optional string onStart = 4; // 视频开始播放通知URL
+	optional string onPause = 5; // 视频暂停通知URL
+	optional string onRecover = 6; // 视频暂停恢复通知UR
+	optional string onFinish = 7; // 视频播放完成通知URL
+}
+
+// 广告交互信息
+message AdInteractInfo {
+	optional DetectInfo hubDetectInfo = 1;//广告监测地址
+	repeated DetectInfo thirdpartInfo = 2;//第三方检测地址
+	optional string landingPageUrl = 3;// 落地页，原生渲染的点击事件跳转URL, 优先于phoneNumer
+	optional string phoneNumber = 4;// 电话号码，同上
+
+	// [[2017-06-02 leoly
+	// 合理拆分广告监测
+	repeated string impTrackers = 5; // 曝光监测URLs
+	repeated string clickTrackers = 6; // 点击监测URLs
+	// 以下的视频监测应该在每个视频中，而非广告中
+	repeated string onStartTrackers = 10; // 视频开始播放监测URLs
+	repeated string onPauseTrackers = 11; // 视频暂停播放监测URLs
+	repeated string onResumeTrackers = 12; // 视频恢复播放监测URLs
+	repeated string onFinishTrackers = 13; // 视频播放完成URLs
+	// ]]
+	optional string deeplinkUrl = 14;// deeplink url 地址，1.8.8版本才增加
+
+	optional int32 interactType = 15; // 交互类型 1: 仅展示， 2: 下载， 4: 跳转页面， 2018-04-02, value range defined by adhubADX
+
+	optional string apkName = 16; // adx    // 下载的app应用名称
+	optional string packageName = 17; // adx // 下载安装包名称，android package name, ios bundle ID
+	optional string appStoreID = 18; // adx  // 下载app的唯一id号，ios only
+	optional string appDesc = 19; // adx   // app的描述
+	optional string appDownloadURL = 20; // adx// app 下载链接, android: apk URL; ios: ituns URL
+
+}
+
+// 请求Adx的相关参数
+message AdxInfo {
+	optional string adxID = 1; // 所需请求的 adx 标识
+	repeated string dspID = 2; // 所需请求的 dsp 列表
+
+	repeated adxAppInfo appInfoList = 3; // 对应 adx/dsp 的 appID, 如果订单的每个app对每个dsp的 appID不同, order需要根据spaceID拆分，否则不支持
+	repeated adxSpaceInfo spaceInfoList = 4; // 对应 adx/dsp 的 spaceID, 同上
+
+	optional int32 priority = 5; // priority 0: invalid, 1: maximum priority .... 2017-11-16
+	optional int32 timeout = 6; // timeout 0: invalid, use default adxTimeout, else use timeout value .... 2017-11-16
+
+	optional int64 b = 100; // begin ts 2017-12-17
+	optional int64 e = 101; // end ts 2017-12-17
+	optional string r = 102; // result 2017-12-17
+	
+	optional int32 ri = 103; // int ret, 1: timeout, 2: ok, 0: default
+	optional int64 pushTS = 104;
+	optional int64 timeoutTS = 105;
+	optional int64 finishTS = 106;
+}
+
+// adx对应的app参数
+message adxAppInfo {
+	required string appID = 1; // 我方平台appID
+	optional string appParam = 2; // json object string, adx平台对应的app参数
+	optional string dspID = 3; // 我方平台的dspID, 用于在一个 adx 下对应多个 dsp 时，且每个dsp对应的app参数不同时使用
+	optional string normalAppID = 4; //套牌appID yz++
+	optional string price = 5; //套牌广告位对应订单的最高出价 yz++
+}
+
+// adx对应的space参数
+message adxSpaceInfo {
+	required string spaceID = 1; // 我方平台spaceID
+	optional string spaceParam = 2; // json object string, adx平台对应的space参数
+	optional string dspID = 3; // 我方平台的dspID, 用于在一个 adx 下对应多个 dsp 时，且每个dsp对应的app参数不同时使用
+	optional string normalSpaceID = 4; //套牌spaceID yz++
+	optional string price = 5; //套牌广告位对应订单的最高出价 yz++
+}

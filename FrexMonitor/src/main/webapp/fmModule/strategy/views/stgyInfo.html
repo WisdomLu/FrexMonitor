@@ -1,0 +1,11 @@
+<div ng-controller="stgyInfoCtrl">
+    <div id="user_info_tab" class="clearfix {{accountFixedUserType?'unique-user-tab':'all-user-tab'}}">
+        <div ng-if="!accountFixedUserType || accountFixedUserType=='1'">
+            <a class="btn {{activeUserType == '1'?'btn-success':'btn-default'}}" href="#/Content/Account/UserInfo/EnterpriseUser">{{1 | userType}}</a>
+        </div>
+        <div ng-if="!accountFixedUserType || accountFixedUserType=='2'">
+            <a class="btn {{activeUserType == '2'?'btn-success':'btn-default'}}" href="#/Content/Account/UserInfo/PersonalUser">{{2 | userType}}</a>
+        </div>
+    </div>
+    <div ui-view="fm_user_window"></div>
+</div>

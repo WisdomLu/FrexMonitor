@@ -1,0 +1,38 @@
+syntax = "proto2";
+
+package adhub.engine;
+
+import "enumType.proto";
+import "commonInfo.proto";
+import "bidExt.proto";
+
+// 广告请求
+message SdkRequest {
+	required string version = 1; // 协议版本, 0.1.0
+	required SrcType srcType = 2; // 请求来源, 0:Test; 1:App, 2:Wap; 3:PC
+	required ReqType reqType = 3; // 请求类型, 0:广告请求, 1:wifipreload请求, 2: AD_REQ_PB3
+	required uint64 timeStamp = 4; // 请求发起时间, unix时间戳
+	required string appid = 5;  // 集成SDK的时候，媒体标识-- 走api的时候,需要浩博科技分配具体id
+
+	optional DeviceInfo devInfo = 6; // 设备信息
+	optional UserEnvInfo envInfo = 7; // 用户设备环境信息
+	repeated AdReqInfo adReqInfo = 8; // 广告请求参数, 支持一次请求多个广告位广告
+
+	// service side data
+	optional int32 ifType = 9; // 接口类型, 1: PB API, 2:JSON API, 3:SDK
+	optional int64 ts = 10; // 服务端接收时间戳 nanoseconds since January 1, 1970 UTC
+
+	// some para for app info 
+	optional string appVersion = 11;  // app自身的版本号,wzy++ 20170724, 原因是讯飞增了此字段并且为必填字段
+	
+	optional ReqExt reqExt = 12;  // ADX竞价对接使用, APP对接忽略 zf++ 2017-10-10 15:35:36
+}
+
+// 广告请求参数
+message AdReqInfo {
+	required string spaceID = 1; // 广告位标识
+	optional string spaceParam = 2; // 广告请求入参, 如激励视频的事件标识
+	optional ScreenDirectionType screenStatus = 3; // 请求时用户的屏幕方向
+	repeated string userTags = 4; // 用户标签
+	optional ImpExt impExt = 5; // 竞价信息 ADX竞价对接使用, APP对接忽略 zf++ 2017-10-10 15:35:36
+}

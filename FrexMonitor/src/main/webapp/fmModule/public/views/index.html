@@ -1,0 +1,51 @@
+<header ng-controller="pubHeaderCtrl">
+    <nav id="fm_header_nav">
+        <div id="fm_header_user_info">
+            <div class="nowrap">
+                <img src="fmModule/public/img/head.png">
+                <span>娆㈣繋鎮紒{{userName}}</span><span ng-click="logout()" class="hand-hover">閫�鍑�</span>
+            </div>
+        </div>
+        <div id="dep_inveno_logo">
+            <a ui-sref="Content.Home.view({reload:true})"><img src="fmModule/public/img/inveno.jpg"></a>
+        </div>
+        <div id="header_right_area">
+            <!--<div id="fm_header_msg" ng-click="goMessage()">-->
+            <!--<div>-->
+            <!--<div class="msg-circle">-->
+            <!--<span>1</span>-->
+            <!--</div>-->
+
+            <!--</div>-->
+            <!--</div>-->
+
+            <!--<div id="fm_header_help">-->
+            <!--</div>-->
+
+            <div id="fm_header_create_ad" ng-click="createAd()">
+                <div id="create_ad_img"></div>
+                <div id="create_ad_txt">
+                    鏂板缓骞垮憡
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+<aside id="fm_left_nav" ng-controller="sideCtrl">
+    <ul>
+        <li><a id="home" ui-sref="Content.Home.view({reload:true})" class="{{active=='home'?'home-active':'home'}}"></a>
+        </li>
+        <li><a id="spread" ui-sref="Content.Spread.spreadPlan({reload:true})"
+               class="{{active=='spread'?'spread-active':'spread'}}"></a></li>
+        <li><a id="tool" ui-sref="Content.Tool.materialManager({reload:true})"
+               class="{{active=='tool'?'tool-active':'tool'}}"></a></li>
+        <li><a id="report" ui-sref="Content.Report.view({reload:true})"
+               class="{{active=='report'?'report-active':'report'}}"></a></li>
+        <li><a id="account" ui-sref="Content.Account.userInfo.enterpriseUser({reload:true})"
+               class="{{active=='account'?'account-active':'account'}}"></a></li>
+    </ul>
+</aside>
+<article class="sirius-rem-body fullW" sirius-rem-body>
+    <div id="fm_content_window" ui-view="fm_content_window"></div>
+</article>
+<footer></footer>

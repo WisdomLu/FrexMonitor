@@ -1,0 +1,90 @@
+#_left_nav {
+    width: 150px;
+    padding-right: 50px;
+    top: 80px;
+    z-index: 100;
+    height: 100%;
+}
+
+@media screen and (min-width: 750px){
+    #_left_nav {
+        position: fixed;
+    }
+}
+
+@media screen and (max-width: 750px){
+    #_left_nav {
+        position: absolute;
+    }
+}
+
+#_left_nav > ul > li > a {
+    display: block;
+    width: 100px;
+    height: 80px;
+    margin-top: 20px;
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+#_left_nav > ul > li:first-child > a{
+    margin-top: 50px;
+}
+
+.home {
+    background-image: url("../img/home.png");
+}
+
+.home-active {
+    background-image: url("../img/home-active.png");
+}
+
+.spread {
+    background-image: url("../img/spread.png");
+
+}
+
+.spread-active {
+    background-image: url("../img/spread-active.png");
+
+}
+
+.tool {
+    background-image: url("../img/tool.png");
+
+}
+
+.tool-active {
+    background-image: url("../img/tool-active.png");
+
+}
+
+.report {
+    background-image: url("../img/report.png");
+
+}
+
+.report-active {
+    background-image: url("../img/report-active.png");
+
+}
+
+.account {
+    background-image: url("../img/account.png");
+}
+
+.account-active {
+    background-image: url("../img/account-active.png");
+
+}
+
+.message {
+    background-image: url("../img/message.png");
+
+}
+
+.message-active {
+    background-image: url("../img/message-active.png");
+
+}

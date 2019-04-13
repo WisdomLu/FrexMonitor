@@ -1,0 +1,99 @@
+header {
+    background-color: #ebebeb;
+    height: 80px;
+    position: fixed;
+    z-index: 100;
+    width: 100%;
+}
+
+#fm_header_nav > div{
+    float: left;
+    height: 80px;
+}
+#dep_inveno_logo {
+    width: 360px;
+    margin-left: -100%;
+    overflow: hidden;
+}
+#fm_header_user_info {
+    width:100%;
+    height: 80px;
+    line-height: 80px;
+    font-size: 18px;
+    color: #aaaaaa;
+}
+#fm_header_user_info > div {
+    margin:0 330px 0 360px;
+    text-align: center;
+}
+#fm_header_user_info > div > span{
+    padding: 5px;
+}
+#header_right_area {
+    width: 150px;
+    margin-left: -150px;
+}
+#header_right_area > div{
+    float: right;
+    height: 80px;
+    line-height: 80px;
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+
+}
+#fm_header_msg {
+    position: relative;
+    width: 90px;
+    background-image: url("../img/msg.png");
+}
+
+#fm_header_help {
+    width: 90px;
+    background-image: url("../img/help.png");
+}
+
+#fm_header_create_ad {
+    width: 150px;
+    background-color: #ff6000;
+    font-size: 18px;
+}
+
+#create_ad_img {
+    height: 50px;
+    background-image: url("../img/createAd.png");
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#create_ad_txt {
+    text-align: center;
+    height: 30px;
+    color: white;
+    line-height: 30px;
+}
+
+.msg-circle {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: auto;
+    min-width: 20px;
+    height: 20px;
+    color: white;
+    border-radius: 10px;
+    text-align: center;
+    line-height: 20px;
+    background-color: red;
+}
+
+.msg-circle > span {
+    height: 10px;
+    line-height: 10px;
+    display: block;
+    position: relative;
+    top: 50%;
+    margin-top: -5px;
+    margin-left: 5px;
+    margin-right: 5px;
+}

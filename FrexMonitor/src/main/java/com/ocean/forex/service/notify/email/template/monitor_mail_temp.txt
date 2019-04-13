@@ -1,0 +1,26 @@
+<BODY style="MARGIN: 10px"><DIV><SPAN style="FONT-FAMILY: Calibri"></SPAN>亲爱的用户：</DIV>
+<DIV>
+<P>您好!这封信是由外汇监控系统发送的                     </P>
+<P>您收到这封邮件，是由于当前汇价/时间触发了该事件。</P>
+<P>若非本人操作，请忽略此邮件，谢谢</P>
+<P>----------------------------------------------------------------------</P>
+<P></P>
+<P>详情如下：</P>
+<P></P>
+<P><b>{__EVENT_INFO__}</b></P>
+<P></P>
+<P></P>
+<P>----------------------------------------------------------------------</P>
+<P></P>
+<P></P>
+<P>此为系统邮件，请勿回复。</P>
+
+<HR style="HEIGHT: 1px; WIDTH: 210px" align=left color=#b5c4df SIZE=1>
+
+<DIV><SPAN>
+<DIV style="FONT-SIZE: 10pt; FONT-FAMILY: verdana; MARGIN: 10px">
+<DIV>
+<DIV style="FONT-SIZE: 10pt; FONT-FAMILY: verdana; MARGIN: 10px">
+<DIV>
+<DIV style="FONT-SIZE: 10pt; FONT-FAMILY: verdana; MARGIN: 10px">
+<DIV>外汇监控系统</DIV>

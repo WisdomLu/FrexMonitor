@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC "log4j:configuration" "log4j.dtd" >
+<log4j:configuration>
+	<appender name="toConsoler" class="org.apache.log4j.ConsoleAppender">
+		<param name="datePattern" value="'.'yyyy-MM-dd" />
+		<layout class="org.apache.log4j.PatternLayout" >
+			<param name="ConversionPattern" value="[%d{ISO8601}] [%t] %-5p %c %x - %m%n"/>
+		</layout>
+	</appender>
+	<appender name="toFile" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="file" value="${catalina.home}/logs/PDF_INTER_DAILY.log"/>
+		<param name="datePattern" value="'.'yyyy-MM-dd" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{ISO8601}] [%t] %-5p %c %x %L - %m%n"/>
+		</layout>
+	</appender>
+ 	<logger name="org.hibernate" additivity="false" >
+		<level value="warn"></level>
+		<appender-ref ref="toFile"/>
+	</logger> 
+	<logger name="net.sf.json" additivity="false" >
+		<level value="error"></level>
+		<appender-ref ref="toFile"/>
+	</logger> 
+	<logger name="org.apache" additivity="false" >
+		<level value="error"></level>
+		<appender-ref ref="toFile"/>
+	</logger> 
+	
+	<root>
+		<level value="info"></level>
+		<appender-ref ref="toFile" />
+		<!-- <appender-ref ref="toConsoler" />  -->
+		
+	</root>
+</log4j:configuration>

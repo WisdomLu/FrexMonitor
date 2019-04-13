@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta charset="utf-8"/>
+    <title>广告投放平台</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <link rel="shortcut icon" type="image/ico" href="favicon.ico">
+
+    <link href="webLib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="webLib/angular/rzslider/rzslider.css" rel="stylesheet">
+    <link href="fmModule/public/css/fm-table.css" rel="stylesheet">
+    <link href="fmModule/public/css/aside.css" rel="stylesheet">
+    <link href="webLib/jquery/dataTable/dataTables.bootstrap.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="webLib/bootstrap/css/daterangepicker.css"/>
+    <link rel="stylesheet" href="webLib/bootstrap/css/bootstrap-select.min.css"/>
+    <link rel="stylesheet" href="webLib/fontello/css/fontello-embedded.css"/>
+
+    <link href="fmModule/public/fm.css" rel="stylesheet">
+    <link href="fmModule/public/css/geo.css" rel="stylesheet">
+
+    <link href="fmModule/account/css/account.css" rel="stylesheet">
+    <link href="fmModule/home/css/home.css" rel="stylesheet">
+    <link href="fmModule/report/css/report.css" rel="stylesheet">
+    <link href="fmModule/message/css/message.css" rel="stylesheet">
+    <link href="fmModule/public/css/header.css" rel="stylesheet">
+    <link href="fmModule/report/css/report.css" rel="stylesheet">
+    <link href="fmModule/spread/css/spread.css" rel="stylesheet">
+    <link href="fmModule/tool/css/tool.css" rel="stylesheet">
+    <link href="fmModule/spread/css/oriInfo.css" rel="stylesheet">
+    <link href="fmModule/user/css/user.css" rel="stylesheet">
+    <link href="fmModule/public/css/message-tip.css" rel="stylesheet">
+
+</head>
+<body ng-app="FM" id="ng-app" >
+<div id="fm_body" ui-view>
+
+</div>
+<div id="sirius-alert" sirius-alert class="modal">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                <h5 class="modal-title"><i class="icon-attention-circled"></i> [Title]</h5>
+            </div>
+            <div class="modal-body small">
+                <p>[Message]</p>
+            </div>
+            <div class="modal-footer" >
+                <button type="button" class="btn btn-primary ok" data-dismiss="modal">[BtnOk]</button>
+                <button type="button" class="btn btn-default cancel" data-dismiss="modal">[BtnCancel]</button>
+            </div>
+        </div>
+    </div>
+</div>
+<sirius-geo></sirius-geo>
+<sirius-message-tip></sirius-message-tip>
+<div id="loading_modal" class="fm-modal-dialog">
+</div>
+</body>
+<script src="webLib/jquery/jquery.min.js"></script>
+<script src="webLib/bootstrap/js/moment.js"></script>
+<script src="webLib/bootstrap/js/daterangepicker.js"></script>
+<script src="webLib/bootstrap/js/bootstrap.min.js"></script>
+<script src="webLib/bootstrap/js/bootstrap-select.min.js"></script>
+<script src="webLib/angular/angular.js"></script>
+<script src="webLib/angular/rzslider/rzslider.js"></script>
+<script src="webLib/angular/angular-route.min.js"></script>
+<script src="webLib/angular/angular-ui-router.min.js"></script>
+<script src="webLib/jquery/dataTable/jquery.dataTables.js"></script>
+<script src="webLib/angular/datatables/angular-datatables.js"></script>
+<script src="webLib/angular/datatables/angular-datatables.bootstrap.js"></script>
+<script src="webLib/jquery/fileupload.js"></script>
+<script src="webLib/sirius1.0/js/common.js"></script>
+<script src="webLib/sirius1.0/js/py.js"></script>
+<script src="webLib/sirius1.0/js/angular/SiriusConstants.js"></script>
+<script src="webLib/sirius1.0/js/angular/SiriusCommon.js"></script>
+<script src="webLib/sirius1.0/js/angular/SiriusHttpServiceForFm.js"></script>
+<script src="webLib/sirius1.0/js/angular/SiriusView.js"></script>
+<script src="webLib/sirius1.0/js/angular/SiriusForm.js"></script>
+<script src="webLib/sirius1.0/js/angular/SiriusStorage.js"></script>
+<script src="webLib/sirius1.0/js/angular/SiriusFilter.js"></script>
+<script src="fmModule/FrexMonitor.js"></script>
+<script src="fmModule/home/fmHomeModule.js"></script>
+<script src="fmModule/public/fmDaoModule.js"></script>
+<script src="fmModule/public/fmPublicModule.js"></script>
+<script src="fmModule/tool/fmToolModule.js"></script>
+<script src="fmModule/strategy/fmStrategy.js"></script>
+
+<script src="webLib/jquery/swiper/swiper.jquery.min.js"></script>
+
+</html>

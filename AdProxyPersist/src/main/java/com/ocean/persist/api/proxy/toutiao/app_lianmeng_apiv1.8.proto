@@ -1,0 +1,222 @@
+// Copyright 2017 Bytedance Inc. All Rights Reserved.
+
+message BidRequest {
+    required string request_id=1; // 必填。自定义的请求id，长度为32位，保证其请求的唯一性。
+    required string api_version=2; // 必填。此API的版本。
+    required string uid=3; //必填，用户ID
+    optional User user=4; // 可选。用户信息，用于人群定向。
+    required string source_type=5;  //流量类型：app或者wap
+    optional Wap wap=6; // 必填。当source_type为wap时，必须提供
+    optional App app=7; // 必填。移动app的信息。
+    required Device device=8;  // 必填。移动设备的信息。
+    required string ua=9;  // 必填。User-Agent
+    required string ip=10;  // 必填。设备的ip，用于定位，地域定向
+    repeated AdSlot adslots=11; // 必填，至少一个。广告位的信息。
+
+    message App {
+        required string appid=1; // 必填。app应用id，由头条分配。
+        optional string name=2; // 可选。app应用名。
+        optional string package_name=3; // 可选。 包名
+        optional uint32 app_category=4; // 可选。 app类型
+        optional string version=5; // 可选。 app应用的版本。
+        optional Geo geo=6; // 可选。设备的地理位置信息
+        optional bool is_paid_app=7; // 可选。表示此app是否为付费app。
+    }
+
+    message Wap {
+        required string site_id=1; //站点id
+        required string title=2; //网站标题
+        required uint32 site_category=3; //站点类型
+        optional string url=4; //网页URL
+        optional string referral=5; //referURL
+        optional string info=6; //附加信息
+    }
+
+    message Device {
+        required string did=1; // 必填。设备的唯一标识，安卓为IMEI, IOS为IDFA，TV为IDFA。
+        required string imei=2; //设备IMEI（明文）
+        required DeviceType type=3; // 必填。设备类型。
+        required OsType os=4; // 必填。操作系统类型。
+        optional string os_version=5; // 可选。操作系统版本。
+        optional string vendor=6; // 可选。设备厂商，如Apple, Samsung。
+        optional string model=7; // 可选。设备型号，如iPhone5s, Galaxy。
+        optional string language=8; // 可选。设备设置的语言。
+        optional ConnectionType conn_type=9; // 可选。设备的网络类型。
+        optional string mac=10; // 可选。设备的mac地址。
+        required uint32 screen_width=11; //设备屏宽
+        required uint32 screen_height=12; //设备屏高
+        optional string android_id=13; //选填。安卓ID
+        optional string uuid=14; //选填。安卓UUID
+        optional string open_udid=15; //选填。IOS 软件生成替代UDID的标识
+
+        // 设备类型
+        enum DeviceType {
+            DEVICE_UNKNOWN=0;
+            PHONE=1;  // 手机。
+            TABLET=2; // 平板。
+            TV=3; // 智能电视。
+        }
+        // 操作系统类型
+        enum OsType {
+            OS_UNKNOWN=0;
+            ANDROID=1;
+            IOS=2;
+            WINDOWS=3;
+        }
+        // 网络类型
+        enum ConnectionType {
+            CONN_UNKNOWN=0;
+            WIFI=1;
+            MOBILE_2G=2;
+            MOBILE_3G=3;
+            MOBILE_4G=4;
+        }
+    }
+
+    message Geo {
+        optional float latitude=1; //纬度
+        optional float longitude=2; //经度
+        optional string city=3;  //城市，中文即可(utf-8编码)
+        optional string province=4; //省份，中文即可(utf-8编码)
+        optional string district=5; //区县，中文即可(utf-8编码)
+    }
+
+    message User {
+        optional Gender gender=1; // 可选。用户的性别。
+        optional uint32 age=2; // 可选。用户的年龄。
+        optional string phone_nub=3; // 可选。手机号码
+        optional string keywords=4; // 可选。用户画像的关键词列表，以逗号分隔。
+        repeated string app_list=5; // 可选。已经安装的应用列表。
+        repeated Data data=6; // 提供额外的用户信息
+
+        enum Gender {
+            UNKNOWN=0;
+            MALE=1;
+            FEMALE=2;
+        }
+        message Data {
+            required string name=1;
+            optional string value=2;
+        }
+    }
+
+    message AdSlot {
+        required string id=1; // 必填。广告位id。
+        required AdType adtype=2; // 必填。广告类型。
+        required Position pos=3; // 必填。广告展现位置。
+        repeated Size accepted_size=4; // 必填。可选素材尺寸。
+        repeated CreativeType accepted_creative_types=5; // 可选。可接受的创意类型。
+        repeated InteractionType accepted_interaction_type=6; // 可选。app支持的创意交互类型。
+        optional uint64 minimum_cpm=7; // 可选。最低的cpm出价, 单位为分/cpm。
+        optional uint32 ad_count=8; // 可选，需要的广告数量
+        optional bool is_origin_ad=9; // 可选，是否是原生广告
+
+        // 广告的类型。
+        enum AdType {
+            BANNER=1; // 横幅广告。
+            INTERSTITIAL=2; // 插屏广告。
+            SPLASH=3; // 开屏广告(请求后立即展现)。
+            CACHED_SPLASH=4; // 缓存开屏广告(预加载)。
+            STREAM=5; // 信息流广告。
+        }
+        // 广告出现的位置。
+        enum Position {
+            TOP=1; // 顶部。
+            BOTTOM=2; // 底部。
+            FLOW=3; // 信息流内。
+            MIDDLE=4; // 中部(插屏广告专用)。
+            FULLSCREEN=5; // 全屏。
+        }
+        // 可选的创意类型。
+        enum CreativeType {
+            TEXT=1; // 文字。
+            IMAGE=2; // 图片。
+            GIF=3; // 动图。
+            HTML=4; // HTML.
+            VIDEO=5; // 视频。
+            TEXT_ICON=6;  // 图文。
+        }
+        // 创意的交互类型
+        enum InteractionType {
+            NO_INTERACTION=1; // 无动作，针对有些开屏不支持点击。
+            SURFING=2; // 使用浏览器打开网页。
+            IN_APP=3; // 在app中打开。
+            DOWLOAD=4; // 下载应用。
+            DIALING=5; // 拨打电话。
+            MESSAGE=6; // 发送短信。
+            EMAIL=7; // 发送邮件。
+        }
+        message Size {
+            required uint32 width=1;  // 宽度。
+            required uint32 height=2; // 高度。
+        }
+    }
+}
+
+message BidResponse {
+    required string request_id=1; // 必填。BidRequest中所带的request_id。
+    repeated Ad ads=2; // 可选。当竞价时必填，竞价广告列表，与adslots对应。
+    optional uint32 processing_time_ms=3; // 可选。从收到请求到返回响应所用的时间。
+    optional int64 status_code=4; // 可选。请求时的状态码。
+    optional uint32 expiration_time=5; // 可选。广告过期时间戳，单位为秒，针对预加载广告。
+
+    message Ad {
+        required string ad_id=1; // 必填。创意id。
+        required MaterialMeta creative=2; // 必填。素材。
+        optional uint64 price=3; // 出价
+
+        message MaterialMeta {
+            required CreativeType creative_type=1; // 必填。该广告的创意类型。
+            optional InteractionType interaction_type=2; // 可选。广告支持的交互类型。
+            optional Image image=3; // 可选。素材图片。
+            optional string target_url=4; // 可选。创意的落地页url。
+            optional string download_url=5; // 可选,应用下载必填。应用下载url。
+            optional string title=6; // 可选。广告标题。
+            optional string description=7; // 可选。广告描述。
+            optional string app_name=8; // 可选。针对应用下载类广告。
+            optional string package_name=9; // 可选。安卓应用下载包名。
+            repeated string win_notice_url=10; // 可选。获胜通知的url列表。
+            repeated string show_url=11; // 可选。展现监测url列表。
+            repeated string click_url=12; // 可选。点击监测url列表。
+            optional string ext=13; // 可选。扩展字段，DSP方希望通过监测url回传的数据。
+            optional ImageMode image_mode=14; // 素材模式,
+            repeated Image image_list=15; // 多图
+            optional string phone_num = 16; //电话拨打广告，号码
+            optional string button_text = 17; //电话拨打广告，按钮名称
+            optional string source = 18; // 落地页的来源
+            optional string icon = 19; // icon
+
+            // 可选的创意类型。
+            enum CreativeType {
+                TEXT=1; // 文字。
+                IMAGE=2; // 图片。
+                GIF=3; // 动图。
+                HTML=4; // HTML.
+                VIDEO=5; // 视频。
+                TEXT_ICON=6;  // 图文。
+            }
+            // 创意的交互类型
+            enum InteractionType {
+                NO_INTERACTION=1; // 无动作，针对有些开屏不支持点击。
+                SURFING=2; // 使用浏览器打开网页。
+                IN_APP=3; // 在app中打开。
+                DOWLOAD=4; // 下载应用。
+                DIALING=5; // 拨打电话。
+                MESSAGE=6; // 发送短信。
+                EMAIL=7; // 发送邮件。
+            }
+            // 图片素材信息。
+            message Image {
+                optional string url=1;
+                optional uint32 width=2;
+                optional uint32 height=3;
+            }
+
+            enum ImageMode {
+                SMALL = 2;//小图
+                LARGE = 3;//大图
+                GROUP = 4;//组图
+            }
+        }
+    }
+}

@@ -1,0 +1,79 @@
+.dataTables_wrapper .paging_simple_numbers > ul{
+    margin: 0 0 0 10px;
+}
+.fm-table+div > div > div > div.dataTables_length label {
+    margin-top: 1px;
+    float: right;
+    line-height: 34px;
+}
+.fm-table+div > div > div > div.dataTables_length label select.input-sm {
+    height: 34px;
+}
+.fm-table > thead > tr {
+    background-color: #e6e6e6;
+    height: 55px;
+    color: #898989;
+}
+.fm-table > tbody > tr > td {
+    height: 55px;
+    border-top: none;
+    border-bottom: 1px #eaecf0 solid;
+}
+.fm-table > tbody > tr.detail-tr > td{
+    border-bottom: 1px #6eb548 solid;
+}
+.fm-table > thead > tr >th,
+.fm-table > tbody > tr > td {
+    text-align: center;
+    vertical-align: middle;
+    position: relative;
+    padding: 0;
+}
+.fm-table > tbody > tr > td {
+    font-size: 12px;
+}
+
+.fm-table p {
+    margin-bottom: 0;
+}
+.fm-table-foot{
+    width: 250px;
+    height: 50px;
+    padding: 10px;
+    padding-right: 0;
+    float: right;
+    margin-right: 150px;
+}
+
+.fm-table-foot > span{
+    display: block;
+    float: left;
+    line-height: 30px;
+}
+.fm-table-foot >span:nth-child(1){
+    width: 80px;
+    text-align: right;
+}
+.fm-table-foot >span:nth-child(2){
+    margin:0 10px 0 10px;
+    width: 30px;
+    text-align: center;
+    cursor: pointer;
+}
+.fm-table-foot >input::after{
+    cursor: pointer;
+}
+.fm-table-foot > input{
+    float: left;
+    height: 30px;
+    line-height: 30px;
+    width: 80px;
+}
+.fm-table-foot > img {
+    float: left;
+    cursor: pointer;
+    position: relative;
+    top:50%;
+    margin-top: -8px;
+    margin-left: 5px;
+}

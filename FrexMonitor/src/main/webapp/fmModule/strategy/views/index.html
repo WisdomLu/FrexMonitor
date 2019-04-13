@@ -1,0 +1,23 @@
+<div ng-controller="strategyCtrl" style="background-color: white;padding-bottom: 80px;">
+    <div id="ad_tabs">
+        <a class="{{activeType==1?'stgy-active':'stgy'}}" href="#/Content/Strategy/StgyInfo">
+
+        </a>
+        <a class="{{activeType==2?'stgyUpdate-active':'stgyUpdate'}}" href="#/Content/Strategy/StgyUpdate">
+
+        </a>
+    </div>
+    <div id="fm_strategy_content" ui-view="fm_strategy_window" class="common-word-style common-content-center margin-top-60"></div>
+    <div id="cancel_and_submit" ng-if="currentForm.editFlag">
+        <div>
+            <div class="btn btn-default" ng-click="cancel()">
+                取消
+            </div>
+        </div>
+        <div>
+            <div class="btn btn-success" sirius-form-submit="submit()" form-name="currentForm.name" form-scope="currentForm.scope">
+                提交
+            </div>
+        </div>
+    </div>
+</div>

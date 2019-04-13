@@ -1,0 +1,25 @@
+.message-tip {
+    position: fixed;
+    top:50%;
+    left: 50%;
+    width: 200px;
+    margin-left: -10px;
+    margin-top: -40px;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fafafa;
+    vertical-align: middle;
+    border-radius: 4px;
+    word-break:break-all;
+    padding: 25px;
+    line-height: 30px;
+    display: none;
+    z-index: 9999;
+    opacity: 0;
+    -webkit-transition: opacity 500ms ease-in;
+    -moz-transition: opacity 500ms ease-in;
+    transition: opacity 500ms ease-in;
+}
+
+.error-tip:target {
+    opacity: 1;
+}

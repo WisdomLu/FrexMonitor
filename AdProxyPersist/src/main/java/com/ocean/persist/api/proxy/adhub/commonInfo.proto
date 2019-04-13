@@ -1,0 +1,48 @@
+syntax = "proto2";
+
+package adhub.engine;
+
+import "enumType.proto";
+
+// 设备信息消息
+message DeviceInfo {
+	required string sdkUID = 1; // SDK安装到用户系统后生成的app的唯一标识
+	optional string imei = 2; // 手机设备标识
+	optional string idfa = 3; // iOS标识
+	optional string mac = 4;//设备网卡编号
+	repeated string phone = 5;//电话号码,双卡双待
+	optional string os = 6; // 系统及版本
+	optional PlatformType platform = 7; // 平台, android, ios
+	optional DeviceType devType = 8; // 平板, 手机, ...
+	optional string brand = 9; // 设备品牌huawei, xiaomi, iphone...
+	optional string model = 10; // 设备型号P8, P9, xiaomi3, iphone5s
+	optional string resolution = 11; // 屏幕分辨率 格式：1920_1080 heigh_width
+	optional string screenSize = 12; // 屏幕尺寸
+	optional string language = 13; // 系统语言
+	optional string density = 14; // 屏幕密度
+	optional string idfv = 15; // iOS idfv
+	optional string androidID = 16; // android_id
+	optional string openUDID = 17; // openudid
+	
+	optional PlatformType platformB = 18; // origin platform from field 7
+}
+
+// 定位信息
+message Geo{
+	required string longitude = 1;//经度
+	required string latitude = 2;//纬度
+	optional string adcode = 3; // 地理位置ID // 20170615 for location report issue
+}
+
+// 用户环境信息
+message UserEnvInfo {
+	optional NetType net = 1; // 当前网络类型,当前网络环境, 未知, 2G, 3G, 4G, 5G, wifi
+	optional IspType isp = 2; // 运营商标识,CN_Mobile, CN_Unicom, ... 
+	optional string ip = 3; // 当前IP--前段获取的手机ip
+	optional Geo geo = 4; //当前经度纬度
+	optional string userAgent = 5; // http 请求 WebView 类型
+	optional int32 age = 6; // 用户年龄
+	optional int32 yob = 7; // 出生年份
+	optional GenderType gender = 8; // 性别
+	optional int32 income = 9; // 收入水平
+}

@@ -1,0 +1,125 @@
+syntax = "proto2";
+package com.zooking.dsp.api.xianguo;
+//api version 2.0.3
+
+//广告请求-输入
+message BidRequest {
+	optional string id= 1;//请求ID 必填！接入方自定义请求ID，[a-zA-Z0-9]{32}
+    optional Version api_version = 2;  // 必填！API版本，当前版本2.0.3，填写错误会导致拒绝请求。
+	optional Config config= 3;// 必填！--需要仙果广告商务提供
+	optional Device device= 4;//设备信息-客户端
+	optional AdSlot adslot= 5;//广告位信息
+	optional App app= 6;//app信息
+	optional uint32 adcount= 7;//返回的广告数量。 默认是1
+	repeated Installpackages installpackages=8;//已安装的应用列表
+};
+// 版本号信息,此版本2.0.3
+message Version {
+    optional uint32 major = 1[default = 0]; // 必填！
+    optional uint32 minor = 2[default = 0]; // 选填！
+    optional uint32 micro = 3[default = 0]; // 选填！
+};
+//配置信息
+message Config {
+    optional uint32 ssp_id = 1;  // 必填！仙果提供此ID
+    optional uint32 medium_id = 2;  // 选填！仙果提供此ID
+    optional uint32 mads_id = 3;  // 必填！仙果提供此ID
+};
+// 设备信息
+message Device {
+    optional string devicetype =1; // 设备类型"PHONE" 手机, "TABLET" 平板
+    optional string ostype =2;  // 操作系统类型 // Android,// iOS
+    optional string os_version = 3;  // 必填！操作系统版本 如：4.0.1
+    optional string vendor = 4;  // 必填！设备厂商名称 
+    optional string model = 5;  // 必填！设备型号 
+    optional SpType sptype = 6;  // 必填！运营商
+	optional string imei = 7[default = ""];  //必填！ Android手机设备的IMEI
+    optional string mac = 8[default = ""];  //必填！ Android非手机设备的WiFi网卡MAC地址
+    optional string imei_md5 = 9[default = ""]; //必填！ Android手机设备的IMEI，经过MD5加密
+    optional string android_id = 10[default = ""]; //必填！Android手机设备系统ID
+    optional uint32 screen_width = 11; //设备屏幕宽
+    optional uint32 screen_height = 12; //设备屏幕高
+	optional string imsi = 13; //手机设备的IMSI
+	optional string ip=14; //手机客户端IP
+	optional ConnectionType connectiontype = 15;  // 必填！联网类型
+	optional Geo geo = 16;//设备位置信息，经纬度以及省市信息
+};
+
+// 广告位信息
+message AdSlot {
+    optional uint32 adslot_width = 1; //广告物料宽
+    optional uint32 adslot_height = 2; //广告物料高
+    optional string topics = 3; // 选填 《详情请参考提供的仙果分类词典》
+	required uint32 bidfloor= 4;//低价
+	optional AdType adtype = 5;  // 必填！广告类型必须和仙果提供的ID对应上。
+	optional string packagename = 6;  // 选填,如果填充此值，意味着返回广告此包名的广告
+};
+//app信息
+message App {
+	optional string App_packagename = 1;//App包名
+    optional string appname = 2;//App名称
+	optional string cat = 3;//app分类
+};
+
+//广告回写-输出
+message BidResponse {
+	optional string id=1;//此ID就是广告请求的id--合作方唯一ID
+	repeated Bid bids=2;
+	optional uint32 error_code = 3;  //错误码，用于问题排查--0是正常返回，1000代表是无广告返回，2000-配置信息不正确，3000-版本号信息错误.等
+	optional uint32 bidprice= 4;//出价。单位(分)
+};
+
+message Bid{
+	optional string Href = 1; //广告地址--落地页，在客户端进行响应，会经过多次302跳转最终到达目标地址
+    repeated string show_url = 2;  // 曝光上报日志URL列表,该地址需要包含宏 %%WIN_PRICE%% ,用于上报成交价
+    repeated string click_url = 3;  // 点击上报URL列表，用户点击后，通知服务器。
+	repeated string down_url = 4;  // 下载上报URL列表，用户点击下载后，通知服务器。
+	repeated string install_url = 5;  // 安装上报URL列表，用户点击安装后，通知服务器。
+    optional string title = 6;  // 推广标题
+    optional string description = 7;  // 广告描述，
+    optional string icon_src = 8;  // 广告图标地址-icon
+    optional string image_src = 9;  // 广告图片地址-img
+    optional string app_package = 10; // 下载类广告应用包名
+    optional uint32 app_size = 11; // 下载类广告应用大小
+	optional string adm = 12; // html片段
+	optional InteractionType interaction_type =13;  // 交互类型
+}
+message Geo {
+	optional double longitude = 1;//经度-非必传
+	optional double latitude = 2;//纬度-非必传
+	optional string province = 3;//省份-必须
+	optional string city = 4;//城市-非必传
+}
+
+message Installpackages {
+	optional bytes packagename = 1;//应用包名
+	optional bytes appname = 2;//应用名称
+	optional bytes app_ver = 3;//应用版本号
+}
+
+enum InteractionType {
+    H5 = 1;  // 使用浏览器打开网页
+    DOWNLOAD = 2;  // 下载应用
+	HTML = 3;  // html片段
+};
+enum ConnectionType {
+	CELL_2G=1;	//手机运营商－2G
+	CELL_3G=2;	//手机运营商－3G
+	CELL_4G=3;	//手机运营商－4G
+    CELL_WIFI=4;	//WIFI
+};
+
+enum SpType {
+	YD =100;//移动
+	LT=200;//联通
+	DX=300;//电信
+	None=500;//未知
+};
+
+enum AdType {
+	currency = 0;//通用
+    banner = 1;//横幅
+    splash = 2;//开屏
+    ingame = 3;//插屏
+    feeds = 4;//信息流
+};

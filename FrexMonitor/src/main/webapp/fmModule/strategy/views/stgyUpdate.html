@@ -1,0 +1,23 @@
+<div class="fm-active password-header"><h5>淇敼瀵嗙爜</h5></div>
+<form sirius-form name="update_password_form" class="user-window padding-top-40" novalidate ng-controller="passwordUpdateCtrl">
+    <div>
+        <label for="originPassword" class="required">鍘熷瘑鐮�</label>
+        <input id="originPassword" type="password" sirius-input="璇疯緭鍏�6-12浣嶅師瀵嗙爜" required ng-minlength="6" ng-maxlength="12" maxlength="12"  placeholder="璇疯緭鍏�6-12浣嶅師瀵嗙爜" class="form-control" name="password"
+               ng-model="passwordObj.password"
+               ng-class="{'fm-form-control-danger': update_password_form['password'].$invalid  && update_password_form['password'].siriusDirty}">
+        <!--<span>蹇樿鍘熷瘑鐮侊紵</span>-->
+    </div>
+    <div>
+        <label for="newPassword" class="required">鏂板瘑鐮�</label>
+        <input id="newPassword" type="password" sirius-input="璇疯緭鍏�6-12浣嶆柊瀵嗙爜" ng-minlength="6" ng-maxlength="12" maxlength="12" required placeholder="璇疯緭鍏�6-12浣嶆柊瀵嗙爜" class="form-control" name="newPassword"
+               data-original-title="鏂板瘑鐮佷负6-12浣嶏紝蹇呴』鍖呭惈鏁板瓧/澶�/灏忓啓瀛楁瘝/鐗规畩瀛楃锛堝!$#锛変腑鐨勪笁椤�" sirius-tool-tip="true"
+               ng-model="passwordObj.newPassword" ng-pattern="/^(?:(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])|(?=.*[A-Z])(?=.*[a-z])(?=.*[^A-Za-z0-9])|(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])|(?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9])).{6,12}$/"
+               ng-class="{'fm-form-control-danger': update_password_form['newPassword'].$invalid  && update_password_form['newPassword'].siriusDirty}">
+    </div>
+    <div>
+        <label for="confirmPassword" class="required">瀵嗙爜纭</label>
+        <input id="confirmPassword" type="password" sirius-input="璇峰啀娆¤緭鍏ユ柊瀵嗙爜" required ng-minlength="6" ng-maxlength="12" maxlength="12" placeholder="璇峰啀娆¤緭鍏ユ柊瀵嗙爜" class="form-control" name="newPassword2"
+               ng-model="passwordObj.newPassword2" sirius-confirm-password="passwordObj.newPassword"
+               ng-class="{'fm-form-control-danger': update_password_form['newPassword2'].$invalid  && update_password_form['newPassword2'].siriusDirty}">
+    </div>
+</form>

@@ -1,0 +1,160 @@
+syntax = "proto2";
+
+package adhub.engine;
+
+// 请求来源
+enum SrcType {
+	SRC_UNKNOWN = 0; // 未知
+	SRC_APP = 1; // 移动应用
+	SRC_WAP = 2; // 移动Web
+	SRC_PC = 3; // PC
+    SRC_TEST = 4;
+}
+
+// 广告请求类型
+enum ReqType {
+	REQ_UNKNOWN = 0; // 未知
+	REQ_AD = 1; // 广告请求
+	REQ_WIFI_PRELOAD = 2; // 广告WIFI预加载
+}
+
+// 广告日志类型
+enum LogType {
+	LOG_UNKNOWN = 0; // 未知
+	LOG_RESP = 1; // 广告效果日志 view, click, convert, action log
+	LOG_CUSTOMER_TAG = 2; // 用户标签
+	LOG_STATISTIC = 3; // 统计信息
+}
+
+// 广告交互类型
+enum ReactType {
+	REACT_UNKNOWN = 0;
+	REACT_VIEW = 1; // 曝光
+	REACT_CLICK = 2; // 点击
+	REACT_CONV = 3; // 转化
+	REACT_ACTION = 4; // 行为
+}
+
+// 自定义标签类型
+enum TagType {
+	TAG_UNKNOWN = 0;
+	TAG_CUSTOMER = 1; // 自定义标签
+}
+
+// 平台类型
+enum PlatformType {
+	PLATFORM_UNKNOWN = 0; 	// 未知
+	PLATFORM_IOS = 1;		// iOS 
+	PLATFORM_ANDROID = 2;	// android
+	PLATFORM_OTHER = 3;		// 其他
+}
+
+// 设备类型
+enum DeviceType {
+	DEVICE_UNKNOWN = 0;
+	DEVICE_PHONE = 1; 	// 移动电话
+	DEVICE_FLAT = 2; 	// 平板
+	DEVICE_WEAR = 3; 	// 穿戴设备
+	DEVICE_PC = 4; 		// PC
+	DEVICE_OTHER = 5; 	// 其他设备
+}
+
+// 网络环境类型
+enum NetType {
+	NET_UNKNOWN = 0;
+	NET_3G = 1;
+	NET_4G = 2;
+	NET_5G = 3;
+	NET_WIFI = 4;
+	NET_OTHER = 5;
+	NET_2G = 6;
+}
+
+// 网络运营商类型
+enum IspType {
+	ISP_UNKNOWN = 0;	// 未知
+	ISP_CN_MOBILE = 1;	// 移动
+	ISP_CN_UNICOM = 2;	// 联通
+	ISP_CN_TEL = 3;		// 电信
+	ISP_OTHER = 4;		// 其他
+}
+
+// 屏幕方向
+enum ScreenDirectionType {
+	SCREEN_DIRECTION_UNKOWN = 0; // 未知
+	PORTRAIT = 1; // 竖屏
+	LANDSCAPE = 2; // 横屏
+}
+
+// 广告位类型
+enum AdpType {
+    ADP_UNKNOWN = 0; // 未知
+    ADP_IVIDEO = 1; // 激励视频
+    ADP_LOADING = 2; // 开屏
+    ADP_TABLE = 3; // 插屏
+    ADP_BANNER = 4; // BANNER
+    ADP_CUSTOMER = 5; // 自定义
+    ADP_NATIVE = 6; // 原生
+}
+
+// 素材类型/素材渲染方式
+enum RenderType { // RenderType if we all agree 
+    RENDER_UNKNOWN = 0; // 未知
+    RENDER_VIDEO = 1; // 素材为视频 URL，接收方负责播放
+    RENDER_PIC = 2; // 素材为图片 URL，接收方负责展示 展示时长的参数
+    RENDER_H5 = 3; // 素材为H5，接收方使用WebView展示
+    RENDER_JSON = 4; // 素材为JSON，接收方负责展示
+	RENDER_VAST_VIDEO = 5; // 素材为 VAST_VIDEO, contentSlot.content 为 VAST_VIDEO 内容(XML)
+}
+
+// 性别
+enum GenderType {
+	GENDER_UNKNOWN = 0; // 未知
+	GENDER_MALE = 1; // 男性
+	GENDER_FEMALE = 2; // 女性
+	GENDER_OTHER = 3; // 其他
+}
+
+// Deal类型
+enum DealType {
+	DEAL_UNKNOWN = 0; //未知
+	DEAL_PD = 1; // 保价
+	DEAL_PDB = 2; //保价保量
+	DEAL_OTHER = 3 ; //其他
+}
+
+// BidAtType
+enum BidATType {
+	BID_AT_UNKNOWN = 0; //未知
+	BID_AT_First_Price = 1;	//first price
+	BID_AT_Second_Price = 2; //second price
+	BID_AD_Fix_From_Bidfloor = 3; //Fix Price from bidfloor
+}
+
+
+enum MaterialType {
+	MT_UNKNOWN = 0; //未知类型
+	MT_PIC = 1; // 图片
+	MT_TEXT = 2; // 文字
+	MT_VIDEO = 3; // 视频
+}
+
+enum MaterialSubType {
+	MST_UNKOWN = 0; // 未知类型
+
+	MST_PIC_STATIC = 1; // 静态图
+	MST_PIC_DYNAMIC = 2; // 动态图
+	MST_PIC_ICON = 3; // 图标
+
+	MST_TEXT_HEADLINE = 10; // 标题
+	MST_TEXT_SUB_HEADLINE = 11; // 子标题
+	MST_TEXT_DESC = 12; // 描述
+	MST_TEXT_BODY = 13; // 正文
+	MST_TEXT_TAG = 14; // 标签
+	MST_TEXT_URL = 15; // URL
+
+	MSG_VIDEO_MPEG = 16; // mpeg
+	MSG_VIDEO_VAST = 17; // vast
+	MSG_VIDEO_AVI = 18; // avi
+
+}

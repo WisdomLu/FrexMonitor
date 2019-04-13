@@ -1,0 +1,187 @@
+#fm_strategy_content *{
+    overflow: hidden;
+}
+
+#fm_strategy_content label,input,select {
+    display: block;
+    height: 30px;
+    line-height: 30px;
+    float: left;
+}
+
+.password {
+    background-image: url("../img/password.jpg");
+}
+
+.password-active {
+    background-image: url("../img/passwordActive.jpg");
+}
+
+.user {
+    background-image: url("../img/user.jpg");
+}
+
+.user-active {
+    background-image: url("../img/userActive.jpg");
+}
+
+.all-user-tab > div {
+    width: 50%;
+    float: left;
+}
+
+.unique-user-tab > div {
+    width: 100%;
+    float: left;
+}
+
+#user_info_tab > div > a {
+    height: 30px;
+    padding: 0;
+    line-height: 30px;
+    border-radius: 4px 4px 0 0;
+    text-align: center;
+    display: block;
+    cursor: pointer;
+    text-decoration: none;
+    border: 1px #bfbfbf solid;
+    border-bottom: 0;
+}
+#user_info_tab > div > a.btn-success {
+    color: #a43e00;
+}
+
+.all-user-tab > div:nth-child(1){
+    padding-right: 5px;
+}
+.all-user-tab > div:nth-child(2){
+    padding-left: 5px;
+}
+.user-window {
+    width: 100%;
+    border: 1px #bfbfbf solid;
+    margin-bottom: 30px;
+}
+.user-window input {
+    width: 300px;
+    padding: 5px;
+}
+.user-window label {
+    width: 130px;
+    padding-left: 20px;
+    margin: 0;
+    position: relative;
+}
+.user-window select {
+    width: 200px;
+    padding: 5px;
+    background-color: #ebebeb;
+}
+.user-window span {
+    line-height: 30px;
+    cursor: pointer;
+}
+.user-window > p:first-child {
+    height: 30px;
+    line-height: 30px;
+    margin-left: 130px;
+}
+
+.user-window > div:nth-child(n+2) {
+    margin-top: 15px;
+}
+
+.user-window > div:last-child {
+    margin-bottom: 50px;
+}
+.user-window > button {
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+
+#id_card_div > div,
+#business_license_div > div {
+    width: 160px;
+    height: 120px;
+    float: left;
+    background-color: #ebebeb;
+    border: 1px #ebebeb solid;
+    border-radius: 4px;
+    position: relative;
+}
+
+#business_license_div > div > p,
+#id_card_div > div > p {
+    text-align: center;
+    font-size: 12px;
+    margin-bottom: 3px;
+}
+
+#business_license_div > div > div:nth-child(4),
+#id_card_div > div > div:nth-child(4){
+    position: absolute;
+    height: 30px;
+    width: 100px;
+    left: 50%;
+    bottom: 15px;
+    margin-left: -50px;
+}
+#id_card_overlay > div,
+#license_overlay > div {
+    position: relative;
+    height: 30px;
+    width: 100px;
+    left: 50%;
+    top: 50%;
+    margin-left: -50px;
+    margin-top:-15px;
+}
+#company_tel > input:nth-child(2) {
+    width: 80px;
+}
+#company_tel > input:nth-child(2).input-for-text {
+    width: 45px;
+}
+#company_tel > div {
+    border : 1px #bfbfbf solid;
+    width: 10px;
+    float: left;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 14px;
+}
+#company_tel > input:nth-child(4) {
+    width: 200px;
+}
+#cancel_and_submit > div {
+    width: 50%;
+    padding-left: 25px;
+    padding-right: 25px;
+    float: left;
+}
+#cancel_and_submit > div > div {
+    height: 30px;
+    width: 150px;
+}
+#cancel_and_submit > div:nth-child(1) > div {
+    float: right;
+}
+#cancel_and_submit > div:nth-child(2) > div {
+    float: left;
+    color: #a43e00;
+}
+
+.password-header {
+    border: 1px #bfbfbf solid;
+    margin-top: 60px;
+    text-align: center;
+    height: 30px;
+    color: #a43e00;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+.password-header > h5 {
+    margin-top: 8px;
+    margin-top: 8px;
+}

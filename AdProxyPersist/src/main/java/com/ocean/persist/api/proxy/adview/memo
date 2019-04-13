@@ -1,0 +1,2 @@
+(1)请求头设置：请确保请求头带有Accept-Encoding，包含gzip。如果AdView以gzip格式返回，需要合作方进行解压缩处理
+(2)appid 必须
